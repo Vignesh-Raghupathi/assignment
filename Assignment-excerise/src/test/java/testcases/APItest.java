@@ -14,7 +14,7 @@ package testcases;
 	    String toCurrency;
 	    Response response;
 
-	    @When("/^user converts (\\d+) Guatemalan Quetzal to British pounds$/")
+	    @When("/^user converts 10000000 Guatemalan Quetzal to British pounds$/")
 	    public void input_parametes() {
 	    	RestAssured.baseURI="https://pro-api.coinmarketcap.com";
 	    	amount=10000000;
@@ -38,7 +38,7 @@ package testcases;
 
 	        
 	    	JsonPath jsonResp = new JsonPath(response.asString());
-	    	Double price = jsonResp.getDouble("data.quote.GBP.price");
+	    	Double price = jsonResp.getDouble("data[0].quote.GBP.price");
 	    	System.out.println("Price in GBP is: " + price);
 	    	amount = (int)Math.round(price);
 	    	System.out.println("Amount is: " + amount);
@@ -62,7 +62,7 @@ package testcases;
 	        Assert.assertEquals(200, response.statusCode());
 	        JsonPath jsonResp = new JsonPath(response.asString());
 
-	        double price = jsonResp.getDouble("data.quote.DOGE.price");
+	        double price = jsonResp.getDouble("data[0].quote.DOGE.price");
 	        System.out.println("Price in Doge Coin is: " + price);
 
 	    }

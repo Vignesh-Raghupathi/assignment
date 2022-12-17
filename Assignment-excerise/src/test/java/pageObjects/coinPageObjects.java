@@ -36,42 +36,36 @@ public class coinPageObjects {
 				break;
 			}
 		} 
+		jsE.executeScript("history.go(0)");
 	}
 
 	public static ArrayList<String> pageContent(WebDriver driver)
 	{
-		List<String> rank = new ArrayList<String>();
-		List<String> name = new ArrayList<String>();
-		List<String> price = new ArrayList<String>();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-		List<WebElement> rows = driver.findElements(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr/td[2]"));
-		int rowCount=rows.size();
-		System.out.println(" Initial Row count: "+rowCount);
-		String first  = driver.findElement(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr/td[2]/p")).getText();
-		rank.add(first);
-		String first1 = driver.findElement(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr/td[3]/div/a/div/div/p")).getText(); 
-		name.add(first1);
-		String first2 = driver.findElement(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr/td[4]//span")).getText();
-		price.add(first2);
+		ArrayList<String> rank = new ArrayList<String>();
+		ArrayList<String> name = new ArrayList<String>();
+		ArrayList<String> price = new ArrayList<String>();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+		WebElement ele =driver.findElement(By.xpath("//div[@class=\"sc-aef7b723-0 sc-18df06a5-0 hBoqvQ\"]"));
+		jse(driver,ele);
+		List<WebElement> first  = driver.findElements(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr/td[2]/p"));
+		List<WebElement> first1 = driver.findElements(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr/td[3]/div/a/div/div/p")); 
+		List<WebElement> first2 = driver.findElements(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr/td[4]//span"));
 
-		for (int i=1;i<11;i++)
-		{
+		for (WebElement fir : first)
+		{ String test  = fir.getText();	rank.add(test); }
+		for (WebElement fir : first1)
+		{ String test  = fir.getText();	name.add(test);	}
+		for (WebElement fir : first2)
+		{ String test  = fir.getText();	price.add(test);}
 
-			String test  = driver.findElement(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr[" + i +"]/td[2]/p")).getText();
-			rank.add(test);
-			String test1 = driver.findElement(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr[" + i +"]/td[3]/div/a/div/div/p")).getText(); 
-			name.add(test1);
-			String test2 = driver.findElement(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr[" + i +"]/td[4]//span")).getText();
-			price.add(test2);
-		}
 		ArrayList<String> resultSet = new ArrayList<String>();
 		System.out.println(" rank | name | price");
-		for( int i=1;i<11;i++)
-		{
-			System.out.println(rank.get(i) + "|" +name.get(i)+" |"+price.get(i)); 
+		for (int i=0;i<rank.size();i++)
+		{ 
+			System.out.println(rank.get(i) + "|" +name.get(i)+" |"+price.get(i));
 			resultSet.add(rank.get(i) + "|" +name.get(i)+" |"+price.get(i));
 		}
-
+	
 		return resultSet;
 	}
 
@@ -93,31 +87,38 @@ public class coinPageObjects {
 				break;
 			}
 		} 
-	}
-
-	public static WebElement toggleMinemable(WebDriver driver)
-	{														  
 		WebElement addFilter= driver.findElement(By.xpath("(//button[@class=\"sc-a4a6801b-0 gNHIvn sc-cc37dd9f-0 sc-7b31fd38-0 cmPAGl\"])[4]"));
 		jse(driver,addFilter);
-		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(7));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class=\"buttons\"]/button[2]")));
+	}
+
+	public static void checkPop(WebDriver driver)
+	{
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
 		driver.findElement(By.xpath("//div[@class=\"buttons\"]/button[2]")).click();
+		selectAllCrypto(driver);
+	}
+	public static WebElement toggleMinemable(WebDriver driver)
+	{														  
+		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(1));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id=\"mineable\"]/parent::div/label/span")));
 		return driver.findElement(By.xpath("//input[@id=\"mineable\"]/parent::div/label/span"));
 	}
 
 	public static WebElement selectAllCrypto(WebDriver driver)
 	{
+		WebElement crypto= driver.findElement(By.xpath("//button[@class=\"sc-a4a6801b-0 cGFzGl cmc-filter-button\"]"));
+		jse(driver,crypto);
+		return crypto;
+	}										
 
-		return driver.findElement(By.xpath("(//div[@class=\"sc-3f0e0564-0 cUVoXU\"])/div[2]/div/div[1]/button"));
-	}
-
-	public static WebElement selectCoins(WebDriver driver)
+	public static void selectCoins(WebDriver driver)
 	{
-		return driver.findElement(By.xpath("(//div[@class=\"sc-3f0e0564-0 cUVoXU\"])/div[2]/div/div[2]/div[2]/button"));
+		WebElement coins= driver.findElement(By.xpath("//button[@class=\"sc-a4a6801b-0 bcMxzk cmc-option-button\"]"));
+		jse(driver,coins);
 	}
 	public static WebElement selectPrice(WebDriver driver)
 	{
-		return driver.findElement(By.xpath("(//div[@class=\"sc-3f0e0564-0 cUVoXU\"])/div[2]/div/div[3]/button"));
+		return driver.findElement(By.xpath("(//button[@class=\"sc-a4a6801b-0 cGFzGl cmc-filter-button\"])[3]"));
 	}
 
 	public static WebElement lowerPriceValue(WebDriver driver)
@@ -137,43 +138,11 @@ public class coinPageObjects {
 		return driver.findElement(By.xpath("//div[@class=\"sc-aef7b723-0 sc-f6433b52-0 hfka-Dm\"]/button"));
 	}
 
-	public static ArrayList<String> tableFilterContent(WebDriver driver)
+	public static void tearOut(WebDriver driver)
 	{
-		List<String> rank = new ArrayList<String>();
-		List<String> name = new ArrayList<String>();
-		List<String> price = new ArrayList<String>();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-		List<WebElement> rows = driver.findElements(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr/td[2]"));
-		int rowCount=rows.size();	
-		System.out.println(" After filter Row count "+rowCount);
-
-		String first  = driver.findElement(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr/td[2]/p")).getText();
-		rank.add(first);
-		String first1 = driver.findElement(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr/td[3]/div/a/div/div/p")).getText(); 
-		name.add(first1);
-		String first2 = driver.findElement(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr/td[4]//span")).getText();
-		price.add(first2);
-		for (int i=1;i<=rowCount;i++)
-		{
-
-			String test  = driver.findElement(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr[" + i +"]/td[2]/p")).getText();
-			rank.add(test);
-			String test1 = driver.findElement(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr[" + i +"]/td[3]/div/a/div/div/p")).getText(); 
-			name.add(test1);
-			String test2 = driver.findElement(By.xpath("//div[@class=\"sc-f7a61dda-2 efhsPu\"]/table/tbody/tr[" + i +"]/td[4]//span")).getText();
-			price.add(test2);
-		}
-
-		ArrayList<String> resultSet = new ArrayList<String>();
-		System.out.println(" After filter , table looks ");
-		System.out.println(" rank | name | price");
-		for( int i=0;i<rowCount;i++)
-		{
-			System.out.println(rank.get(i) + "|" +name.get(i)+" |"+price.get(i)); 
-			resultSet.add(rank.get(i) + "|" +name.get(i)+" |"+price.get(i));
-		}
-
-		return resultSet;
+		driver.quit();
+		System.out.println("Driver Closed");
 	}
-
+	
+	
 }

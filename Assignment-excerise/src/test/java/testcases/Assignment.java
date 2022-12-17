@@ -9,10 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
-
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -50,37 +46,49 @@ public class Assignment {
 	public  void user_gets_the_first_records(int arg1) throws Throwable {
 
 		ArrayList<String> resSet = new ArrayList<String>();
+		System.out.println("\n-----First 20 entry in the table-----");
 		resSet =coinPageObjects.pageContent(driver);		
-		System.out.println("\n----------");
-		System.out.println(resSet);
-
+		System.out.println("ResSet :"+resSet);
 	}
 
 	@When("^click filter by alogrithm - \"([^\"]*)\"$")
 	public  void click_filter_by_alogrithm(String arg1) throws Throwable {
 
 		coinPageObjects.changeToPow(driver);
-
-
 	}
 
 	@When("^toggle \"([^\"]*)\"$")
 	public  void toggle(String arg1) throws Throwable {
-
-		coinPageObjects.toggleMinemable(driver).click();
-
+		try{
+			coinPageObjects.toggleMinemable(driver).click();
+		}
+		catch(Exception e)
+		{
+			coinPageObjects.checkPop(driver);
+			coinPageObjects.toggleMinemable(driver);
+		}
 	}
 
 	@When("^click \"([^\"]*)\"$")
-	public  void click(String arg1) throws Throwable {
-		coinPageObjects.selectAllCrypto(driver).click();
+	public  void click_AllCrypto(String arg1) throws Throwable {
+		try{
+			coinPageObjects.selectAllCrypto(driver).click();
+		}
+		catch(Exception e)
+		{
+			coinPageObjects.checkPop(driver);
+			coinPageObjects.selectAllCrypto(driver);
+		}
 	}
 
 	@When("^select \"([^\"]*)\"$")
-	public  void select(String arg1) throws Throwable {
-
-		coinPageObjects.selectCoins(driver).click();
-
+	public  void select_coins(String arg1) throws Throwable {
+		try{
+			coinPageObjects.selectCoins(driver);
+		}catch(Exception e)
+		{
+			coinPageObjects.selectAllCrypto(driver);
+		}
 	}
 
 	@When("^select price$")
@@ -101,12 +109,17 @@ public class Assignment {
 
 	@Then("^compare the results with first (\\d+) records$")
 	public  void compare_the_results_with_first_records(int arg1) throws Throwable {
-
-		ArrayList<String> resSet1 = new ArrayList<String>();
-		resSet1 =coinPageObjects.tableFilterContent(driver);		
-		System.out.println("\n-----After Filter List-----");
-		System.out.println(resSet1);
-
+		try {
+			ArrayList<String> resSet1 = new ArrayList<String>();
+			System.out.println("\n-----After applying Filter to the Table-----");
+			resSet1 =coinPageObjects.pageContent(driver);
+			System.out.println("resSet1:"+resSet1);
+			coinPageObjects.tearOut(driver);
+		} catch ( Exception e)
+		{
+			coinPageObjects.pageContent(driver);
+		}
 	}
 
+	
 }
