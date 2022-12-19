@@ -1,20 +1,19 @@
-This project is a Pratical exercise to perform test on UI and API.
-Created a maven project and Used technology are Java, Selenium, cucumber framework for UI testing and API along with PostMan API.
-Used design pattern is Page Object Model.
+Project title : Coin market UI test and coin conversion API test
+Description:
+This project contains two test.
+One is Filtering and extracting the data from coinMarket website.
+Another is an API test to convert Guatemalan Quetzal to British pounds and futher British pounds converted to DOGE coin, performed under CoinMarket API.
 
-pom.xml contains the plugins and dependencies.
-Created a folder for feature file and it consist of two scenario - One for UI filteration another for API test.
-Respective step definitions are created in java file under a package named testcases.
-For page object model, created a package pageObjects and a java file to handle all the web elements.
-Runner class to link the feature file, step definition and to generate the report.
- 
- Test performed on UI:
- 1) Opened the URL and changed the display filter value to 20.
- 2) Save the Webtable into java class
- 3) Apply few filters, extract the modified table and save it to the java class
- 
- 
-Create a API key to access the coinmarket API(Separate action.Not part of coding).
-Test performed on API:
-1) Converted the Guatemalan Quetzal to British pounds
-2) Converted pounds to be converted into Doge coins
+Technologies used
+JAVA, Selenium, BDD frameframe (Cucumber), RestAssured
+Maven Project with Page Object Model design pattern
+
+How to RUN test:
+Under /src/test/java, we have a package named "runner".
+In which we have file named "RunnerClass.java"
+Run this file as "JUnit Test".
+
+Report:
+After test execution is finished,
+Test report can be found under "Reports" folder.  
+Report is generated using cucumber plugin.

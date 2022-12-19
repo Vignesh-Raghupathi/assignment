@@ -1,4 +1,4 @@
-Feature: Project assignment 2
+Feature: CoinMarket API 
 
 Scenario: Price Conversion API Test
 

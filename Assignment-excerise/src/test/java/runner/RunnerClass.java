@@ -8,7 +8,7 @@ import io.cucumber.junit.Cucumber;
 @CucumberOptions(features= "Feature", 
  				 glue="testcases", 
  				 stepNotifications=true,
- 				 plugin = { "pretty","html:reports/cucumber-reports.html" },
+ 				 plugin = { "pretty","html:Reports/cucumber-reports.html" },
  				 monochrome = true)
 public class RunnerClass {
 

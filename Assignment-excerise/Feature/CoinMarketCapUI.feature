@@ -1,4 +1,4 @@
-Feature: Project assignment one
+Feature: CoinMarketCap UI 
 
 Scenario: Filtering UI and extracting data for comparison
 
