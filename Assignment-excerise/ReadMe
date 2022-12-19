@@ -1,19 +1,25 @@
-Project title : Coin market UI test and coin conversion API test
-Description:
-This project contains two test.
-One is Filtering and extracting the data from coinMarket website.
-Another is an API test to convert Guatemalan Quetzal to British pounds and futher British pounds converted to DOGE coin, performed under CoinMarket API.
+Project title : CoinMarketcap Crypto Currency price filtering and conversion 
 
-Technologies used
-JAVA, Selenium, BDD frameframe (Cucumber), RestAssured
-Maven Project with Page Object Model design pattern
+Project Description:
+
+This repository consists of two tests related to UI side and API side of Cryptocurrency Prices comparison and their conversions.
+
+
+Tools and Technologies :
+
+JAVA
+Selenium
+Cucumber BDD framework
+RestAssured API framework
+Maven Project
+Report - cucumber plugin
 
 How to RUN test:
+
 Under /src/test/java, we have a package named "runner".
 In which we have file named "RunnerClass.java"
 Run this file as "JUnit Test".
 
 Report:
-After test execution is finished,
+
 Test report can be found under "Reports" folder.  
-Report is generated using cucumber plugin.
