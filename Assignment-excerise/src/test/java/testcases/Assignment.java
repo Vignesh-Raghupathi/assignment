@@ -1,14 +1,7 @@
 package testcases;
 
-import java.time.Duration;
 import java.util.ArrayList;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -20,18 +13,7 @@ public class Assignment {
 	@Given("^user is on coinmarket page$")
 	public  void user_is_on_coinmarket_page() throws Throwable {
 
-		System.setProperty("webdriver.chrome.driver","C:\\Users\\Vignesh Raghupathi\\eclipse-workspace\\chromedriver\\chromedriver.exe");
-		ChromeOptions co =new ChromeOptions();
-		co.setAcceptInsecureCerts(true);
-		driver =new ChromeDriver(co);
-		driver.get("https://coinmarketcap.com/");
-		driver.manage().window().maximize();
-
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-		WebElement element= driver.findElement(By.xpath("//*[local-name()='svg' and @class='sc-aef7b723-0 jhvPQd']/*[local-name()='path']"));
-		element.click();
-		WebElement element1= driver.findElement(By.xpath("//*[local-name()='svg' and @class='sc-aef7b723-0 fKbUaI close-button']/*[local-name()='path']"));
-		element1.click();
+		coinPageObjects.driverInitiation(driver);
 
 	}
 
